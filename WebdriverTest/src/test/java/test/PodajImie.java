@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;;
 
 public class PodajImie {
 	WebDriver driver;		
@@ -26,7 +26,8 @@ public class PodajImie {
 		home = new Home(driver);
 		home.clickContact();
 		contact = new Contact(driver);
-		contact.setName("Maciek");
+		contact.inputName("Maciek");
+		contact.moveDonation(40);
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
