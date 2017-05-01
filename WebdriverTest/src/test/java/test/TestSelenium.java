@@ -6,23 +6,23 @@ import pages.Adoption;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestSelenium {
-	WebDriver driver;		
-	Home home;
-	Contact contact;
-	Adoption adoption;
+	static WebDriver driver;		//static jeœli @BeforeClass/@Afterclass
+	static Home home;
+	static Contact contact;
+	static Adoption adoption;
 	
 	//String title = driver.getTitle();				 
 	//assertTrue(title.contains("Contact")); 
 	
-	//@BeforeClass //ale musi byæ static wtedy i trzeba zaimportowaæ BeforeClass
-	@Before
-	public void beforeTest() {	
+	//@Before //wykona przed ka¿dym,nie musi byæ static wtedy i trzeba zaimportowaæ Before
+	@BeforeClass
+	public static void beforeTest() {	
 	    driver = new FirefoxDriver();
 	    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	    driver.get("http://thetestroom.com/webapp"); 
@@ -36,6 +36,7 @@ public class TestSelenium {
 		//home = new Home(driver); //jeœli nie ma w setUp
 		//contact = new Contact(driver); //jeœli nie ma w setUp
 		home.clickContact();
+		w8(500);	//TODO zamieniæ na EC
 		contact.inputName("Maciek");
 		contact.checkNewsletter();
 		contact.selectAdoption();
@@ -74,9 +75,9 @@ public class TestSelenium {
 			e.printStackTrace();
 		}
 	}
-	//@AfterClass //ale musi byæ static wtedy i trzeba zaimportowaæ AfterClass
-	@After
-	public void afterTest(){
+	//@After //wykona po ka¿dym, nie musi byæ static wtedy i trzeba zaimportowaæ After
+	@AfterClass
+	public static void afterTest(){
 		driver.quit();
 	}
 }
