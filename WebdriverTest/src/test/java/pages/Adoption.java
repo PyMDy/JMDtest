@@ -28,4 +28,12 @@ public class Adoption {
 		new Select(list).selectByVisibleText(co);
 	}
 	
+	public void clickButton1(){
+		btn1.click();
+	}
+	
+	public void clickButton2(){
+		btn2.click();
+	}
+	
 }

@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class PodajImie {
+public class TestSelenium {
 	WebDriver driver;		
 	Home home;
 	Contact contact;
@@ -20,7 +20,7 @@ public class PodajImie {
 	//String title = driver.getTitle();				 
 	//assertTrue(title.contains("Contact")); 
 	
-	//@BeforeClass //ale musi byæ static wtedy
+	//@BeforeClass //ale musi byæ static wtedy i trzeba zaimportowaæ BeforeClass
 	@Before
 	public void beforeTest() {	
 	    driver = new FirefoxDriver();
@@ -33,6 +33,8 @@ public class PodajImie {
 	
 	@Test				
 	public void testPositiveContact() {	
+		//home = new Home(driver); //jeœli nie ma w setUp
+		//contact = new Contact(driver); //jeœli nie ma w setUp
 		home.clickContact();
 		contact.inputName("Maciek");
 		contact.checkNewsletter();
@@ -47,6 +49,8 @@ public class PodajImie {
 		}	
 	@Test
 	public void testAlertContact(){
+		//home = new Home(driver); //jeœli nie ma w setUp
+		//contact = new Contact(driver); //jeœli nie ma w setUp
 		home.clickContact();
 		contact.inputName("Maciek");
 		contact.clickSend();
@@ -55,9 +59,11 @@ public class PodajImie {
 	}
 	@Test
 	public void testAdoption(){
+		//home = new Home(driver); //jeœli nie ma w setUp
+		//adoption = new Adoption(driver); //jeœli nie ma w setUp
 		home.clickAdoption();
 		adoption.selectList("Today");
-		w8(2000);
+		w8(1000);
 		
 	}
 	
@@ -68,7 +74,7 @@ public class PodajImie {
 			e.printStackTrace();
 		}
 	}
-	//@AfterClass //ale musi byæ static wtedy
+	//@AfterClass //ale musi byæ static wtedy i trzeba zaimportowaæ AfterClass
 	@After
 	public void afterTest(){
 		driver.quit();
