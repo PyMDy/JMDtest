@@ -1,7 +1,12 @@
 package pages;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement; 
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 
@@ -9,55 +14,89 @@ public class Contact {
 	
 	WebDriver driver;
 	
-	By name = By.cssSelector("#table2 > tbody > tr:nth-child(1) > td:nth-child(2) > input[type='text']");
-	By rinformation = By.id("rinfo");
-	By rdonation = By.id("rdona");
-	By radoption = By.id("radop");
-	By checkzoo = By.id("cdona");
-	By checkemail = By.id("cadop");
-	By address = By.name("address_field");
-	By postcode = By.name("postcode_field");
-	By email = By.name("email_field");
-	By send = By.id("submit_message");
-	By slider = By.xpath(".//*[@id='slider-1']/a");
+	@FindBy(css = "#table2 > tbody > tr:nth-child(1) > td:nth-child(2) > input[type='text']")
+	WebElement name;
+	
+	@FindBy(id = "rinfo")
+	WebElement rinformation;
+	
+	@FindBy(id = "rdona")
+	WebElement rdonation;
+	
+	@FindBy(id = "radop")
+	WebElement radoption;
+	
+	@FindBy(id = "cdona")
+	WebElement checkzoo;
+	
+	@FindBy(id = "cadop")
+	WebElement checkemail;
+	
+	@FindBy(name = "address_field")
+	WebElement address;
+	
+	@FindBy(name = "postcode_field")
+	WebElement postcode;
+	
+	@FindBy(name = "email_field")
+	WebElement email;
+	
+	@FindBy(id = "submit_message")
+	WebElement send;
+	
+	@FindBy(xpath = ".//*[@id='slider-1']/a")
+	WebElement slider;
 	
 	public Contact(WebDriver driver){
 		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
 	
 	public void inputName(String imie){
-		driver.findElement(name).sendKeys(imie);	
+		this.name.sendKeys(imie);	
 	}
 	public void selectInformation(){
-		driver.findElement(rinformation).click();
+		rinformation.click();
 	}
 	public void selectDonation(){
-		driver.findElement(rdonation).click();
+		rdonation.click();
 	}
 	public void selectAdoption(){
-		driver.findElement(radoption).click();
+		radoption.click();
 	}
 	public void checkVolunteer(){
-		driver.findElement(checkzoo).click();
+		checkzoo.click();
 	}
 	public void checkNewsletter(){
-		driver.findElement(checkemail).click();
+		checkemail.click();
 	}
 	public void inputAddress(String adres){
-		driver.findElement(address).sendKeys(adres);
+		this.address.sendKeys(adres);
 	}
 	public void inputPostcode(String post){
-		driver.findElement(postcode).sendKeys(post);
+		this.postcode.sendKeys(post);
 	}
 	public void inputEmail(String mail){
-		driver.findElement(email).sendKeys(mail);
+		this.email.sendKeys(mail);
 	}
 	public void clickSend(){
-		driver.findElement(send).click();
+		send.click();
 	}
 	public void moveDonation(int x){
+		//driver.switchTo().frame(0);
 		Actions builder = new Actions(driver);
-		Action moveslider = (Action) builder.dragAndDropBy(driver.findElement(slider), x, 0);
+		Action moveslider = builder.dragAndDropBy(slider, x, 0).build();
 		moveslider.perform();
+	}
+	public void checkAlert() {
+	    try {
+	        WebDriverWait wait = new WebDriverWait(driver, 2);
+	        wait.until(ExpectedConditions.alertIsPresent());
+	        Alert alert = driver.switchTo().alert();
+	        alert.getText();
+	        alert.accept();
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
 	}
 }
